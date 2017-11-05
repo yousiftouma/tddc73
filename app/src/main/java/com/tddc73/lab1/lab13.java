@@ -3,7 +3,11 @@ package com.tddc73.lab1;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,13 +16,12 @@ public class lab13 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lab13);
+//        setContentView(R.layout.lab13);
 
 
         // LayoutParams
 
         LinearLayout.LayoutParams contentLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
         LinearLayout.LayoutParams innerContentLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         //
@@ -74,6 +77,60 @@ public class lab13 extends AppCompatActivity {
         noOne.setLayoutParams(innerContentLayoutParams);
         noOne.setText("Nej");
 
-        
+        innerContentLayoutTwo.addView(yesOne);
+        innerContentLayoutTwo.addView(noOne);
+
+        //Fifth
+        FrameLayout imageHolder = new FrameLayout(this);
+        imageHolder.setLayoutParams(contentLayoutParams);
+
+        ImageView image = new ImageView(this);
+        image.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
+        image.setImageResource(R.mipmap.ic_launcher_round);
+
+        imageHolder.addView(image);
+
+        //Sixth
+        TextView textThree = new TextView(this);
+        textThree.setLayoutParams(contentLayoutParams);
+        textThree.setGravity(Gravity.CENTER);
+        textThree.setText("Är detta LiUs logotyp");
+
+        //Seventh
+
+        LinearLayout innerContentLayoutThree = new LinearLayout(this);
+        innerContentLayoutThree.setLayoutParams(innerContentLayoutParams);
+        innerContentLayoutThree.setOrientation(LinearLayout.HORIZONTAL);
+
+        CheckBox yesTwo = new CheckBox(this);
+        yesTwo.setLayoutParams(innerContentLayoutParams);
+        yesTwo.setText("Ja");
+
+        CheckBox noTwo = new CheckBox(this);
+        noTwo.setLayoutParams(innerContentLayoutParams);
+        noTwo.setText("Nej");
+
+        innerContentLayoutThree.addView(yesTwo);
+        innerContentLayoutThree.addView(noTwo);
+
+        // Eighth
+
+        Button send = new Button(this);
+        send.setLayoutParams(contentLayoutParams);
+        send.setText("SKICKA IN");
+
+
+        // Last
+
+        contentLayout.addView(textOne);
+        contentLayout.addView(innerContentLayoutOne);
+        contentLayout.addView(textTwo);
+        contentLayout.addView(innerContentLayoutTwo);
+        contentLayout.addView(imageHolder);
+        contentLayout.addView(textThree);
+        contentLayout.addView(innerContentLayoutThree);
+        contentLayout.addView(send);
+
+        setContentView(contentLayout);
     }
 }
