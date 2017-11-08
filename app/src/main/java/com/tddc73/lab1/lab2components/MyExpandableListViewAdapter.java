@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.tddc73.lab1.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,9 +24,13 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<ExpandableListViewParentNode> parents;
 
+    private List<String> pathsList;
+
     public MyExpandableListViewAdapter(Context context, List<ExpandableListViewParentNode> parents) {
         this.context = context;
         this.parents = parents;
+
+        createPathsList();
     }
 
     @Override
@@ -94,5 +99,23 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;
+    }
+
+    /***
+     * Create a list<string> representation of this ExpandableListView
+     * @return All paths in ListView as strings
+     */
+    private void createPathsList(){
+        pathsList = new ArrayList<>();
+        for (ExpandableListViewParentNode parent : parents){
+            String parentPath = "/" + parent.getName();
+            for (String childName : parent.getChildren()){
+                    pathsList.add(parentPath + "/" + childName);
+            }
+        }
+    }
+
+    public List<String> getPathsList(){
+        return pathsList;
     }
 }
