@@ -1,6 +1,7 @@
 package com.tddc73.lab1.lab2components;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;

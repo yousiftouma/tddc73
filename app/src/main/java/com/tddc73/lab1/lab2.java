@@ -1,5 +1,6 @@
 package com.tddc73.lab1;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -73,7 +74,21 @@ public class lab2 extends AppCompatActivity {
     }
 
     private void handleEditText(String currentText) {
-        System.out.println(foundStartsWith(currentText));
+        if (foundStartsWith(currentText)){
+            String[] split = currentText.split("/");
+            if(split.length > 1){
+                for(ExpandableListViewParentNode parent : parents){
+                    if(parent.getName().equals(split[1])){
+                        System.out.println("FOUND!");
+                    }
+                }
+                System.out.println("Some node found!");
+            }
+        } else {
+            // TODO not on the right track!
+            System.out.println("Display RED!");
+        }
+
     }
 
     private boolean foundStartsWith(String toMatch){
