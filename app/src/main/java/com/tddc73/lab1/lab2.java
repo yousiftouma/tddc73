@@ -1,6 +1,7 @@
 package com.tddc73.lab1;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import com.tddc73.lab1.lab2components.ExpandableListViewChildNode;
 import com.tddc73.lab1.lab2components.ExpandableListViewParentNode;
 import com.tddc73.lab1.lab2components.MyExpandableListViewAdapter;
 
@@ -24,8 +26,6 @@ public class lab2 extends AppCompatActivity {
     private MyExpandableListViewAdapter listViewAdapter;
     private EditText editText;
 
-    private List<String> pathList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,6 @@ public class lab2 extends AppCompatActivity {
         populateExpandableList();
 
         listViewAdapter = new MyExpandableListViewAdapter(this, parents);
-        pathList = listViewAdapter.getPathsList();
         listView.setAdapter(listViewAdapter);
 
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -74,60 +73,105 @@ public class lab2 extends AppCompatActivity {
     }
 
     private void handleEditText(String currentText) {
+
         if (foundStartsWith(currentText)){
             String[] split = currentText.split("/");
             if(split.length > 1){
                 for(ExpandableListViewParentNode parent : parents){
                     if(parent.getName().equals(split[1])){
-                        System.out.println("FOUND!");
+                        int indexOfParent = parents.indexOf(parent);
+                        if (!listView.isGroupExpanded(indexOfParent)){
+                            listView.expandGroup(indexOfParent);
+                        }
+                    }
+
+                    for (ExpandableListViewChildNode child : parent.getChildren()){
+                        if(split.length > 2 && child.getName().equals(split[2])){
+                            colorIfActivatedChild(child);
+                        }
                     }
                 }
-                System.out.println("Some node found!");
             }
+            editText.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+            editText.setError(null);
         } else {
-            // TODO not on the right track!
-            System.out.println("Display RED!");
+            colorIfActivatedChild(null);
+            editText.setError("Invalid path!");
+            editText.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
         }
 
+        listViewAdapter.notifyDataSetChanged();
+    }
+
+    private void colorIfActivatedChild(ExpandableListViewChildNode toColor){
+        for (ExpandableListViewParentNode parent : parents){
+            for (ExpandableListViewChildNode child : parent.getChildren()) {
+                child.setActivatedColor(false);
+            }
+        }
+
+        if(toColor == null) return;
+
+        toColor.setActivatedColor(true);
     }
 
     private boolean foundStartsWith(String toMatch){
-        for(String path : pathList){
-            if(path.startsWith(toMatch)){
-                return true;
+
+        for (ExpandableListViewParentNode parent : parents){
+            for (ExpandableListViewChildNode childName : parent.getChildren()){
+                String path = "/" + parent.getName() + "/" + childName.getName();
+                if(path.startsWith(toMatch)){
+                    return true;
+                }
             }
         }
         return false;
     }
 
     private void onCollapseListParentClick() {
-        editText.setText("/");
+        setSearchText("/");
     }
 
     private void onExpandListParentClick(int parentId) {
         ExpandableListViewParentNode parentNode = parents.get(parentId);
         String parentString = parentNode.getName();
-        editText.setText("/" + parentString + "/");
-
+        setSearchText("/" + parentString + "/");
     }
 
     private boolean onExpandableListChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         ExpandableListViewParentNode parentNode = parents.get(groupPosition);
         String parentString = parentNode.getName();
-        String childString = parentNode.getChild(childPosition);
-        editText.setText("/" + parentString + "/" + childString);
+        String childString = parentNode.getChild(childPosition).getName();
+        setSearchText("/" + parentString + "/" + childString);
         return true;
+    }
+
+    private void setSearchText(String text){
+        editText.setText(null);
+        editText.append(text);
     }
 
     private void populateExpandableList() {
         parents = new ArrayList<>();
 
-        ExpandableListViewParentNode b = new ExpandableListViewParentNode("b");
-        ExpandableListViewParentNode b1 = new ExpandableListViewParentNode("b");
-        b.addChild("c");
-        b1.addChild("d");
+        ExpandableListViewParentNode b = new ExpandableListViewParentNode("Animals");
+        ExpandableListViewParentNode b1 = new ExpandableListViewParentNode("Cookies");
+        ExpandableListViewParentNode b2 = new ExpandableListViewParentNode("Pillows");
+
+        b.addChild("Cat");
+        b.addChild("Dog");
+        b.addChild("Horse");
+
+        b1.addChild("Chocolate");
+        b1.addChild("Jam");
+        b1.addChild("Vanilla");
+
+        b2.addChild("Soft");
+        b2.addChild("Hard");
+        b2.addChild("Batman");
 
         parents.add(b);
         parents.add(b1);
+        parents.add(b2);
     }
 }

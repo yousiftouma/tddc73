@@ -1,5 +1,7 @@
 package com.tddc73.lab1.lab2components;
 
+import android.graphics.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,8 @@ import java.util.List;
 
 public class ExpandableListViewParentNode {
 
-    private List<String> children;
+    private List<ExpandableListViewChildNode> children;
+
     private String name;
 
     public ExpandableListViewParentNode(String name) {
@@ -17,19 +20,23 @@ public class ExpandableListViewParentNode {
         this.name = name;
     }
 
-    public void addChild(String child){
-        children.add(child);
+    public void addChild(String childName){
+        children.add(new ExpandableListViewChildNode(childName));
     }
 
     public String getName() {
         return name;
     }
 
-    public String getChild(int index){
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ExpandableListViewChildNode getChild(int index){
         return children.get(index);
     }
 
-    public List<String> getChildren() {
+    public List<ExpandableListViewChildNode> getChildren() {
         return children;
     }
 }

@@ -25,13 +25,11 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<ExpandableListViewParentNode> parents;
 
-    private List<String> pathsList;
 
     public MyExpandableListViewAdapter(Context context, List<ExpandableListViewParentNode> parents) {
         this.context = context;
         this.parents = parents;
 
-        createPathsList();
     }
 
     @Override
@@ -86,14 +84,15 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int parentId, int childId, boolean b, View view, ViewGroup viewGroup) {
-        final String expandedListText = (String) getChild(parentId, childId);
+        final ExpandableListViewChildNode expandedListText = (ExpandableListViewChildNode) getChild(parentId, childId);
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.expandable_list_item, null);
         }
         TextView expandedListTextView = view.findViewById(R.id.expandedListItem);
-        expandedListTextView.setText(expandedListText);
+        expandedListTextView.setText(expandedListText.getName());
+        expandedListTextView.setBackgroundColor(expandedListText.getColor());
         return view;
     }
 
@@ -106,17 +105,4 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
      * Create a list<string> representation of this ExpandableListView
      * @return All paths in ListView as strings
      */
-    private void createPathsList(){
-        pathsList = new ArrayList<>();
-        for (ExpandableListViewParentNode parent : parents){
-            String parentPath = "/" + parent.getName();
-            for (String childName : parent.getChildren()){
-                    pathsList.add(parentPath + "/" + childName);
-            }
-        }
-    }
-
-    public List<String> getPathsList(){
-        return pathsList;
-    }
 }
