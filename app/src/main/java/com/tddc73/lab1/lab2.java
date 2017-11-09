@@ -15,6 +15,8 @@ import com.tddc73.lab1.lab2components.ExpandableListViewChildNode;
 import com.tddc73.lab1.lab2components.ExpandableListViewParentNode;
 import com.tddc73.lab1.lab2components.MyExpandableListViewAdapter;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,8 @@ public class lab2 extends AppCompatActivity {
     private ExpandableListView listView;
     private MyExpandableListViewAdapter listViewAdapter;
     private EditText editText;
+    private TextWatcher tw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +61,11 @@ public class lab2 extends AppCompatActivity {
                 onCollapseListParentClick();
             }
         });
-
-        editText.addTextChangedListener(new TextWatcher() {
+        tw = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -68,8 +73,12 @@ public class lab2 extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
-        });
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+        editText.addTextChangedListener(tw);
+
     }
 
     private void handleEditText(String currentText) {
@@ -143,13 +152,17 @@ public class lab2 extends AppCompatActivity {
         ExpandableListViewParentNode parentNode = parents.get(groupPosition);
         String parentString = parentNode.getName();
         String childString = parentNode.getChild(childPosition).getName();
+        colorIfActivatedChild(parentNode.getChild(childPosition));
+        listViewAdapter.notifyDataSetChanged();
         setSearchText("/" + parentString + "/" + childString);
         return true;
     }
 
     private void setSearchText(String text){
+        editText.removeTextChangedListener(tw);
         editText.setText(null);
         editText.append(text);
+        editText.addTextChangedListener(tw);
     }
 
     private void populateExpandableList() {
