@@ -92,7 +92,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         }
         TextView expandedListTextView = view.findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText.getName());
-        expandedListTextView.setBackgroundColor(expandedListText.getColor());
+        expandedListTextView.setBackgroundResource(expandedListText.getColor());
         return view;
     }
 

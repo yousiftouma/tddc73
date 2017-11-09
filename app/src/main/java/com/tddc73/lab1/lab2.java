@@ -88,6 +88,7 @@ public class lab2 extends AppCompatActivity {
                     for (ExpandableListViewChildNode child : parent.getChildren()){
                         if(split.length > 2 && child.getName().equals(split[2])){
                             colorIfActivatedChild(child);
+                            break;
                         }
                     }
                 }
@@ -155,11 +156,11 @@ public class lab2 extends AppCompatActivity {
         parents = new ArrayList<>();
 
         ExpandableListViewParentNode b = new ExpandableListViewParentNode("Animals");
-        ExpandableListViewParentNode b1 = new ExpandableListViewParentNode("Cookies");
+        ExpandableListViewParentNode b1 = new ExpandableListViewParentNode("Animals");
         ExpandableListViewParentNode b2 = new ExpandableListViewParentNode("Pillows");
 
         b.addChild("Cat");
-        b.addChild("Dog");
+        b.addChild("Cat");
         b.addChild("Horse");
 
         b1.addChild("Chocolate");

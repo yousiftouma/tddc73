@@ -1,6 +1,6 @@
 package com.tddc73.lab1.lab2components;
 
-import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 
 import com.tddc73.lab1.R;
 
@@ -11,7 +11,8 @@ import com.tddc73.lab1.R;
 public class ExpandableListViewChildNode {
 
     private String name;
-    private @ColorInt int color;
+    private @ColorRes
+    int color;
 
     public ExpandableListViewChildNode(String name) {
         this.name = name;
@@ -22,11 +23,11 @@ public class ExpandableListViewChildNode {
         return name;
     }
 
-    public @ColorInt int getColor() {
+    public @ColorRes int getColor() {
         return color;
     }
 
-    public void setColor(@ColorInt int color) {
+    public void setColor(@ColorRes int color) {
         this.color = color;
     }
 
