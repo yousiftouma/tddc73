@@ -22,8 +22,6 @@ public class lab3 extends AppCompatActivity {
         editText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.setHint("Search");
 
-
-
         ll.addView(editText);
         setContentView(ll);
     }
