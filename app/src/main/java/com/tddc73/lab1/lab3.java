@@ -1,5 +1,6 @@
 package com.tddc73.lab1;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class lab3 extends AppCompatActivity {
         LinearLayout ll = new LinearLayout(this);
         ll.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         ll.setOrientation(LinearLayout.VERTICAL);
+        ll.setBackgroundColor(Color.GRAY);
 
         InteractiveSearcher editText = new InteractiveSearcher(this);
         editText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
