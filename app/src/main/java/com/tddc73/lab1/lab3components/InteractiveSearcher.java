@@ -6,6 +6,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
+import java.util.List;
+
 /**
  * Created by Andreas on 2017-11-09.
  */
@@ -43,8 +45,9 @@ public class InteractiveSearcher extends AppCompatEditText implements HttpAsyncT
     private void handleOnTextChanged(String searchPhrase){
         String url =
                 "http://getnames-getnames.a3c1.starter-us-west-1.openshiftapps.com/getnames" +
-                        "/" + ITEMS_TO_SHOW + "/" + searchPhrase;
+                        "/" + searchId + "/" + searchPhrase;
         new HttpAsyncTask(this).execute(url);
+        searchId++;
     }
 
     private void changeText(String newText){
@@ -67,6 +70,10 @@ public class InteractiveSearcher extends AppCompatEditText implements HttpAsyncT
             return;
         }
         Log.d("RESPONSE_HANDLER_TEST", response);
+        List<String> names = JsonParser.parseJsonString(response, ITEMS_TO_SHOW);
+        for (String name : names){
+            Log.d("NAME", name);
+        }
         // TODO parse and show response in view using ITEMS_TO_SHOW
     }
 }
