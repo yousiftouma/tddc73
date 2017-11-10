@@ -3,6 +3,7 @@ package com.tddc73.lab1.lab3components;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 
 import java.io.BufferedInputStream;
@@ -33,10 +34,12 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
         try {
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
-
+            urlConnection.setInstanceFollowRedirects(false);
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             return readStream(in);
         } catch (Exception e) {
+            Log.d("MAKE_SERVICE_CALL", "Got exception "+ e.toString());
+            e.printStackTrace();
             return null;
         } finally {
             if (urlConnection != null) {

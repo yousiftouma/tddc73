@@ -3,6 +3,8 @@ package com.tddc73.lab1;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -20,9 +22,19 @@ public class lab3 extends AppCompatActivity {
         ll.setOrientation(LinearLayout.VERTICAL);
         ll.setBackgroundColor(Color.GRAY);
 
-        InteractiveSearcher editText = new InteractiveSearcher(this);
+        final InteractiveSearcher editText = new InteractiveSearcher(this);
         editText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.setHint("Search");
+
+        ll.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int x = (int)motionEvent.getX();
+                int y = (int)motionEvent.getY();
+                editText.handleTouch(x, y);
+                return false;
+            }
+        });
 
         ll.addView(editText);
         setContentView(ll);
