@@ -14,10 +14,11 @@ import android.widget.TextView;
 
 import com.tddc73.lab1.R;
 
-/**
- * Created by Yousif Touma on 2017-11-13.
- */
 
+/**
+ * Component that handles entering of passwords and visualizes password strength.
+ * Override calculatePasswordStrength to change algorithm for calculating password strength.
+ */
 public class PasswordStrengthMeter extends LinearLayout {
 
     private EditText editText;
@@ -71,6 +72,10 @@ public class PasswordStrengthMeter extends LinearLayout {
         });
     }
 
+    /**
+     * Updates this components views given the currently entered password.
+     * @param userTypedPassword the current password
+     */
     private void updatePasswordStrength(String userTypedPassword) {
         PasswordStrength ps = calculatePasswordStrength(userTypedPassword);
         switch(ps) {
@@ -92,6 +97,12 @@ public class PasswordStrengthMeter extends LinearLayout {
         }
     }
 
+    /**
+     * Sets the visual attributes of the components views.
+     * @param color Color to set progressbar and accompanying text to
+     * @param text Text that describes password strength
+     * @param progress Percentage of progress bar to fill with param color
+     */
     private void setViews(int color, String text, int progress) {
         textView.setTextColor(color);
         textView.setText(text);
@@ -99,6 +110,12 @@ public class PasswordStrengthMeter extends LinearLayout {
         progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
     }
 
+    /**
+     * Base implementation to calculate strength of a password.
+     * Override to use a custom algorithm.
+     * @param userTypedPassword The password to evaluate.
+     * @return The strength of the password
+     */
     public PasswordStrength calculatePasswordStrength(String userTypedPassword) {
         int passwordLength = userTypedPassword.length();
         if(passwordLength <= 8){
@@ -115,15 +132,37 @@ public class PasswordStrengthMeter extends LinearLayout {
         return PasswordStrength.INVALID;
     }
 
+    /**
+     * Gets the currently entered password
+     * @return the currently entered password
+     */
     public String getPasswordText(){
         return editText.getText().toString();
     }
 
+    /**
+     * Enum that represents how strong a password is
+     */
     public enum PasswordStrength{
+        /**
+         * Does not meet the criteria to be a password
+         */
         INVALID,
+        /**
+         * A weak but acceptable password
+         */
         WEAK,
+        /**
+         * An above acceptable password
+         */
         MODERATE,
+        /**
+         * A good but not optimal password
+         */
         STRONG,
+        /**
+         * A very strong password, nearly optimal
+         */
         VERY_STRONG
     }
 }
