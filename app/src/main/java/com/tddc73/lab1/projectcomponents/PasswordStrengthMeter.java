@@ -115,6 +115,10 @@ public class PasswordStrengthMeter extends LinearLayout {
         return PasswordStrength.INVALID;
     }
 
+    public String getPasswordText(){
+        return editText.getText().toString();
+    }
+
     public enum PasswordStrength{
         INVALID,
         WEAK,
