@@ -75,36 +75,28 @@ public class PasswordStrengthMeter extends LinearLayout {
         PasswordStrength ps = calculatePasswordStrength(userTypedPassword);
         switch(ps) {
             case INVALID:
-                textView.setTextColor(Color.BLACK);
-                textView.setText("INVALID");
-                progressBar.setProgress(0);
-                progressBar.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY);
+                setViews(Color.BLACK, "INVALID", 0);
                 break;
             case WEAK:
-                textView.setTextColor(Color.RED);
-                textView.setText("WEAK");
-                progressBar.setProgress(25);
-                progressBar.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                setViews(Color.RED, "WEAK", 25);
                 break;
             case MODERATE:
-                textView.setTextColor(Color.parseColor("#F4C20D"));
-                textView.setText("MODERATE");
-                progressBar.setProgress(50);
-                progressBar.getProgressDrawable().setColorFilter(Color.parseColor("#F4C20D"), PorterDuff.Mode.MULTIPLY);
+                setViews(Color.parseColor("#F4C20D"), "MODERATE", 50);
                 break;
             case STRONG:
-                textView.setTextColor(Color.parseColor("#FFA500"));
-                textView.setText("STRONG");
-                progressBar.setProgress(75);
-                progressBar.getProgressDrawable().setColorFilter(Color.parseColor("#FFA500"), PorterDuff.Mode.MULTIPLY);
+                setViews(Color.parseColor("#FFA500"), "STRONG", 75);
                 break;
             case VERY_STRONG:
-                textView.setTextColor(Color.parseColor("#3CBA54"));
-                textView.setText("VERY STRONG");
-                progressBar.setProgress(100);
-                progressBar.getProgressDrawable().setColorFilter(Color.parseColor("#3CBA54"), PorterDuff.Mode.MULTIPLY);
+                setViews(Color.parseColor("#3CBA54"), "VERY STRONG", 100);
                 break;
         }
+    }
+
+    private void setViews(int color, String text, int progress) {
+        textView.setTextColor(color);
+        textView.setText(text);
+        progressBar.setProgress(progress);
+        progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
     }
 
     public PasswordStrength calculatePasswordStrength(String userTypedPassword) {
