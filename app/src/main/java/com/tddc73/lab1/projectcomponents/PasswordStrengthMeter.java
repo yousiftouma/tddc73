@@ -47,7 +47,7 @@ public class PasswordStrengthMeter extends LinearLayout {
     }
 
     private void init() {
-        inflate(getContext(), R.layout.account_registration_password_strength, this);
+        inflate(getContext(), R.layout.password_strength, this);
         this.editText = findViewById(R.id.editTextPassword);
         this.progressBar = findViewById(R.id.passwordStrength);
         this.textView = findViewById(R.id.passwordStrengthText);

@@ -13,11 +13,12 @@ public class Project extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout cl = new LinearLayout(this);
-        cl.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        cl.setOrientation(LinearLayout.VERTICAL);
-        PasswordStrengthMeter ll = new PasswordStrengthMeter(this);
-        cl.addView(ll);
-        setContentView(cl);
+        setContentView(R.layout.account_registration);
+//        LinearLayout cl = new LinearLayout(this);
+//        cl.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+//        cl.setOrientation(LinearLayout.VERTICAL);
+//        PasswordStrengthMeter ll = new PasswordStrengthMeter(this);
+//        cl.addView(ll);
+//        setContentView(cl);
     }
 }
