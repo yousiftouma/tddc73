@@ -25,6 +25,7 @@ public class PasswordStrengthMeter extends LinearLayout {
     private ProgressBar progressBar;
     private TextView textView;
     private PasswordStrengthCalculator passwordStrengthCalculator;
+    private PasswordStrength strength;
 
 
     public PasswordStrengthMeter(Context context) {
@@ -52,6 +53,7 @@ public class PasswordStrengthMeter extends LinearLayout {
         this.editText = findViewById(R.id.editTextPassword);
         this.progressBar = findViewById(R.id.passwordStrength);
         this.textView = findViewById(R.id.passwordStrengthText);
+        strength = PasswordStrength.INVALID;
 
         // Standard implementation
         this.passwordStrengthCalculator = new PasswordStrengthCalculator() {
@@ -97,6 +99,7 @@ public class PasswordStrengthMeter extends LinearLayout {
      */
     private void updatePasswordStrength(String userTypedPassword) {
         PasswordStrength ps = this.passwordStrengthCalculator.calculatePasswordStrength(userTypedPassword);
+        strength = ps;
         switch(ps) {
             case INVALID:
                 setViews(Color.BLACK, "INVALID", 0);
@@ -139,6 +142,14 @@ public class PasswordStrengthMeter extends LinearLayout {
 
     public void setPasswordStrengthCalculator(PasswordStrengthCalculator passwordStrengthCalculator) {
         this.passwordStrengthCalculator = passwordStrengthCalculator;
+    }
+
+    public PasswordStrength getStrength() {
+        return strength;
+    }
+
+    public void setError (String errorMessage){
+        editText.setError(errorMessage);
     }
 
     /**
