@@ -29,6 +29,6 @@ public class Project extends AppCompatActivity {
     }
 
     public void test(){
-        Toast.makeText(this, (CharSequence) "Successful Account Registration!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Successful Account Registration!", Toast.LENGTH_LONG).show();
     }
 }
