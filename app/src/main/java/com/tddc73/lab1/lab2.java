@@ -30,6 +30,10 @@ public class lab2 extends AppCompatActivity {
     private TextWatcher tw;
 
 
+    /***
+     * Creates the components needed for the interactive ExpandableListView to work. Adds a listener to the List and EditText.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,11 @@ public class lab2 extends AppCompatActivity {
 
     }
 
+    /***
+     * Called when text is changed in EditText. Expands a parent and
+     * colors a child background if such is found.
+     * @param currentText
+     */
     private void handleEditText(String currentText) {
 
         if (foundStartsWith(currentText)){
@@ -113,6 +122,11 @@ public class lab2 extends AppCompatActivity {
         listViewAdapter.notifyDataSetChanged();
     }
 
+    /***
+     * Takes an ExpandableListViewChildNode and colors(marks) it, settings other children to inactive(unmark), and setting their colors accordingly.
+     * If null is passed, set all nodes to inactive(unmarked)
+     * @param toColor
+     */
     private void colorIfActivatedChild(ExpandableListViewChildNode toColor){
         for (ExpandableListViewParentNode parent : parents){
             for (ExpandableListViewChildNode child : parent.getChildren()) {
@@ -125,6 +139,11 @@ public class lab2 extends AppCompatActivity {
         toColor.setActivatedColor(true);
     }
 
+    /***
+     * Checks if a string is part of any path in the ExpandableListView.
+     * @param toMatch current string typed in EditText
+     * @return True if string is part of a path, false otherwise.
+     */
     private boolean foundStartsWith(String toMatch){
 
         for (ExpandableListViewParentNode parent : parents){
@@ -142,12 +161,25 @@ public class lab2 extends AppCompatActivity {
         setSearchText("/");
     }
 
+    /***
+     * Expands clicked parent and applies correct path in EditText.
+     * @param parentId
+     */
     private void onExpandListParentClick(int parentId) {
         ExpandableListViewParentNode parentNode = parents.get(parentId);
         String parentString = parentNode.getName();
         setSearchText("/" + parentString);
     }
 
+    /***
+     * Colors a clicked child, set it to active. Applies correct path in EditText.
+     * @param parent
+     * @param v
+     * @param groupPosition
+     * @param childPosition
+     * @param id
+     * @return
+     */
     private boolean onExpandableListChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         ExpandableListViewParentNode parentNode = parents.get(groupPosition);
         String parentString = parentNode.getName();
@@ -158,6 +190,11 @@ public class lab2 extends AppCompatActivity {
         return true;
     }
 
+    /***
+     * Set a text in EditText placing the marker last, unregisters the TextWatcher before appending text
+     * so that the TextWatcher isn't triggered, prevents a loop between two listeners.
+     * @param text
+     */
     private void setSearchText(String text){
         editText.removeTextChangedListener(tw);
         editText.setText(null);

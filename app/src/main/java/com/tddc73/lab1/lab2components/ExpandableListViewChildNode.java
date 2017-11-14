@@ -5,12 +5,13 @@ import android.support.annotation.ColorRes;
 import com.tddc73.lab1.R;
 
 /**
- * Created by Andreas on 11/8/2017.
+ * Representation of a childnode in an ExpandableListView
  */
 
 public class ExpandableListViewChildNode {
 
     private String name;
+
     private @ColorRes
     int color;
 
@@ -35,6 +36,10 @@ public class ExpandableListViewChildNode {
         this.name = name;
     }
 
+    /***
+     * Sets the background color of a child based on if it's active or not.
+     * @param isActive
+     */
     public void setActivatedColor(boolean isActive){
         if(isActive){
             color = R.color.activatedChildColor;

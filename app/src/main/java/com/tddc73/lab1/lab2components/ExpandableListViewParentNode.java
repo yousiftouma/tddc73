@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Yousif Touma on 2017-11-07.
+ * Representation of a parentnode in an ExpandableListView
  */
 
 public class ExpandableListViewParentNode {
