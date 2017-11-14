@@ -24,6 +24,7 @@ public class PasswordStrengthMeter extends LinearLayout {
     private EditText editText;
     private ProgressBar progressBar;
     private TextView textView;
+    private PasswordStrengthCalculator passwordStrengthCalculator;
 
 
     public PasswordStrengthMeter(Context context) {
@@ -52,7 +53,25 @@ public class PasswordStrengthMeter extends LinearLayout {
         this.progressBar = findViewById(R.id.passwordStrength);
         this.textView = findViewById(R.id.passwordStrengthText);
 
-
+        // Standard implementation
+        this.passwordStrengthCalculator = new PasswordStrengthCalculator() {
+            @Override
+            public PasswordStrength calculatePasswordStrength(String password) {
+                int passwordLength = password.length();
+                if(passwordLength <= 8){
+                    return PasswordStrength.INVALID;
+                }else if (passwordLength <= 10){
+                    return PasswordStrength.WEAK;
+                }else if (passwordLength <= 12){
+                    return PasswordStrength.MODERATE;
+                }else if (passwordLength <= 14){
+                    return PasswordStrength.STRONG;
+                }else if (passwordLength >= 15){
+                    return PasswordStrength.VERY_STRONG;
+                }
+                return PasswordStrength.INVALID;
+            }
+        };
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -77,7 +96,7 @@ public class PasswordStrengthMeter extends LinearLayout {
      * @param userTypedPassword the current password
      */
     private void updatePasswordStrength(String userTypedPassword) {
-        PasswordStrength ps = calculatePasswordStrength(userTypedPassword);
+        PasswordStrength ps = this.passwordStrengthCalculator.calculatePasswordStrength(userTypedPassword);
         switch(ps) {
             case INVALID:
                 setViews(Color.BLACK, "INVALID", 0);
@@ -111,33 +130,15 @@ public class PasswordStrengthMeter extends LinearLayout {
     }
 
     /**
-     * Base implementation to calculate strength of a password.
-     * Override to use a custom algorithm.
-     * @param userTypedPassword The password to evaluate.
-     * @return The strength of the password
-     */
-    public PasswordStrength calculatePasswordStrength(String userTypedPassword) {
-        int passwordLength = userTypedPassword.length();
-        if(passwordLength <= 8){
-            return PasswordStrength.INVALID;
-        }else if (passwordLength <= 10){
-            return PasswordStrength.WEAK;
-        }else if (passwordLength <= 12){
-            return PasswordStrength.MODERATE;
-        }else if (passwordLength <= 14){
-            return PasswordStrength.STRONG;
-        }else if (passwordLength >= 15){
-            return PasswordStrength.VERY_STRONG;
-        }
-        return PasswordStrength.INVALID;
-    }
-
-    /**
      * Gets the currently entered password
      * @return the currently entered password
      */
     public String getPasswordText(){
         return editText.getText().toString();
+    }
+
+    public void setPasswordStrengthCalculator(PasswordStrengthCalculator passwordStrengthCalculator) {
+        this.passwordStrengthCalculator = passwordStrengthCalculator;
     }
 
     /**
