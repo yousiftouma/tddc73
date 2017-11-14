@@ -7,22 +7,11 @@ import android.view.View;
 import java.util.List;
 
 /**
- * Created by Yousif Touma on 2017-11-10.
+ * A view to display strings in a list
  */
-
 public class PopupList extends View {
 
     private List<PopupListItem> items;
-    private View parent;
-    private int itemHeight;
-    private int itemWidth;
-
-    public PopupList(Context context, View parent, int itemHeight, int itemWidth) {
-        super(context);
-        this.parent = parent;
-        this.itemHeight = itemHeight;
-        this.itemWidth = itemWidth;
-    }
 
     public PopupList(Context context) {
         super(context);
@@ -32,6 +21,12 @@ public class PopupList extends View {
         this.items = items;
     }
 
+    /**
+     * Gets the name of the item at given coordinates if we can find anything at those coordinates
+     * @param clickX x coordinate
+     * @param clickY y coordinate
+     * @return the string name if we found anything, otherwise null
+     */
     public String getListItemName(int clickX, int clickY) {
         if (this.items == null) return null;
         for (PopupListItem item : items) {
@@ -42,6 +37,10 @@ public class PopupList extends View {
         return null;
     }
 
+    /**
+     * Draws each list item to the canvas
+     * @param canvas canvas to draw on
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

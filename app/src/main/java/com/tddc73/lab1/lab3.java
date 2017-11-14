@@ -26,6 +26,8 @@ public class lab3 extends AppCompatActivity {
         editText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.setHint("Search");
 
+        // We need to be able to catch touch events outside of the InteractiveSearcher to be able
+        // to handle clicks on the list of names
         ll.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

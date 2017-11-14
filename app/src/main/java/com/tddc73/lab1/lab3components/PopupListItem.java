@@ -7,9 +7,8 @@ import android.graphics.Rect;
 
 
 /**
- * Created by Andreas on 2017-11-10.
+ * A list item to display a string on a canvas
  */
-
 public class PopupListItem {
 
     private Paint paint;
@@ -18,6 +17,14 @@ public class PopupListItem {
     private Rect rect;
     private int left,top,right,bottom;
 
+    /**
+     * Instantiate a list item with its content and position
+     * @param name String to display
+     * @param left x coordinate of the box left side
+     * @param top y coordinate of the box top
+     * @param right x coordinate of the box right side
+     * @param bottom y coordinate of the box bottom
+     */
     public PopupListItem(String name, int left, int top, int right, int bottom) {
         this.name = name;
         this.left = left;
@@ -32,8 +39,12 @@ public class PopupListItem {
         textPaint.setColor(Color.BLACK);
     }
 
-    public void drawToCanvas(Canvas g){
-        g.drawRect(rect, paint);
+    /**
+     * Draws this list item to the canvas by drawing a rectangle and text
+     * @param canvas canvas to draw on
+     */
+    public void drawToCanvas(Canvas canvas){
+        canvas.drawRect(rect, paint);
 
         float testTextSize = 48f;
         textPaint.setTextSize(testTextSize);
@@ -41,10 +52,16 @@ public class PopupListItem {
         textPaint.getTextBounds(name, 0, name.length(), bounds);
         textPaint.setTextSize(testTextSize * (rect.width() * 0.8f) / bounds.width());
 
-        g.drawText(name, left + 10f, rect.centerY() + bounds.height()/2, textPaint);
+        canvas.drawText(name, left + 10f, rect.centerY() + bounds.height()/2, textPaint);
 
     }
 
+    /**
+     * Checks whether given ooordinates is covered by this instance
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return true if instance covers given coordinates.
+     */
     public boolean isWithinBounds(int x, int y){
         return rect.contains(x, y);
     }

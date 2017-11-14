@@ -8,9 +8,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A small JSON parser class to parse JSON strings to java objects
+ */
 public class JsonParser {
 
+    /**
+     * Parses a json object that contains a list of names to a list of strings
+     * @param jsonString the JSON object as a string to parse
+     * @param namesToGet how many of the names to get (first come first served)
+     * @return a list of the namesToGet first names or all names if namesToGet is larger than number of names
+     */
     public static List<String>  parseJsonString(String jsonString, int namesToGet) {
 
         List<String> result = new ArrayList<>();

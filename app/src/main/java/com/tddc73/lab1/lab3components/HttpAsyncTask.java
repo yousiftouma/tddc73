@@ -25,9 +25,8 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     }
 
     /**
-     * Making service call
-     *
-     * @param urlString - url to make request
+     * Connects to an url using HTTP and returns the data as a string
+     * @param urlString - url to make request to
      */
     private String makeServiceCall(String urlString) {
         HttpURLConnection urlConnection = null;
