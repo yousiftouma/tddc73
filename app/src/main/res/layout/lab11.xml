@@ -21,19 +21,15 @@
         android:inputType="textPersonName"
         android:text="Text fält" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RatingBar
-            android:id="@+id/ratingBar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:backgroundTint="@android:color/transparent"
-            android:isIndicator="false"
-            android:numStars="5" />
-    </RelativeLayout>
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@android:color/transparent"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:layout_gravity="center"/>
 
     <EditText
         android:id="@+id/editText"

@@ -9,7 +9,6 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:measureWithLargestChild="true"
         android:stretchColumns="1">
 
         <TableRow

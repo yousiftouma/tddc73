@@ -41,10 +41,10 @@ public class lab11 extends AppCompatActivity {
 
         LinearLayout myLayout = new LinearLayout(this);
         myLayout.setOrientation(LinearLayout.VERTICAL);
-        myLayout.addView(myButton, 0);
-        myLayout.addView(edit, 1);
-        myLayout.addView(rl, 2);
-        myLayout.addView(edit2, 3);
+        myLayout.addView(myButton);
+        myLayout.addView(edit);
+        myLayout.addView(rl);
+        myLayout.addView(edit2);
         setContentView(myLayout);
     }
 }

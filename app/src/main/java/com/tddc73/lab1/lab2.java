@@ -145,7 +145,7 @@ public class lab2 extends AppCompatActivity {
     private void onExpandListParentClick(int parentId) {
         ExpandableListViewParentNode parentNode = parents.get(parentId);
         String parentString = parentNode.getName();
-        setSearchText("/" + parentString + "/");
+        setSearchText("/" + parentString);
     }
 
     private boolean onExpandableListChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
