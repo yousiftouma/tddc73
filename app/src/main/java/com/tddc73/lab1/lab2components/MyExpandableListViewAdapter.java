@@ -17,8 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Yousif Touma on 2017-11-07.
- */
+ * Takes some data representation of a list or expandablelist hierarchy and visualizes it in a view.
+ * The layer between data and representation.
+ * */
 
 public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
@@ -67,6 +68,17 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+    /***
+     * Defines how a group node is displayed in the list. Inflates an xml
+     * to the view if the view is null, otherwise reuses the same view.
+     *
+     * If the function OnDataSetChanged() is called, this will be called to redraw all nodes.
+     * @param parentId
+     * @param b
+     * @param view
+     * @param viewGroup
+     * @return
+     */
     @Override
     public View getGroupView(int parentId, boolean b, View view, ViewGroup viewGroup) {
         final ExpandableListViewParentNode group = (ExpandableListViewParentNode) getGroup(parentId);
@@ -82,6 +94,18 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         return view;
     }
 
+    /***
+     * Defines how a child is displayed in the list. Inflates an xml
+     * to the view if the view is null, otherwise reuses the same view.
+     *
+     * If the function OnDataSetChanged() is called, this will be called to redraw all nodes.
+     * @param parentId
+     * @param childId
+     * @param b
+     * @param view
+     * @param viewGroup
+     * @return
+     */
     @Override
     public View getChildView(int parentId, int childId, boolean b, View view, ViewGroup viewGroup) {
         final ExpandableListViewChildNode expandedListText = (ExpandableListViewChildNode) getChild(parentId, childId);
@@ -101,8 +125,4 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    /***
-     * Create a list<string> representation of this ExpandableListView
-     * @return All paths in ListView as strings
-     */
 }
