@@ -14,6 +14,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -22,12 +23,10 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.junit.Assert.*;
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Tests AccountRegistrationComponent
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class AccountRegistrationComponentTest {
 
     private String mFullNameToBeTyped;
     private String mUsernameToBeTyped;
@@ -42,17 +41,15 @@ public class ExampleInstrumentedTest {
 
     @Before
     public void initValidString() {
-        // Specify a valid string.
+    }
+
+    @Test
+    public void enteringTexts_ShouldDisplayEnteredTexts() {
         mFullNameToBeTyped = "Andreas Touma";
         mUsernameToBeTyped = "MirroW";
         mEmailToBeTyped = "foo@bar.baz";
         mPasswordToBeTyped = "password123";
 
-
-    }
-
-    @Test
-    public void changeText_sameActivity() {
         onView(withId(R.id.fullnameET)).perform(typeText(mFullNameToBeTyped));
         onView(withId(R.id.fullnameET)).check(matches(withText(mFullNameToBeTyped)));
         onView(withId(R.id.usernameET)).perform(typeText(mUsernameToBeTyped));
@@ -61,4 +58,26 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.emailET)).check(matches(withText(mEmailToBeTyped)));
         onView(withId(R.id.editTextPassword)).perform(typeText(mPasswordToBeTyped));
         onView(withId(R.id.editTextPassword)).check(matches(withText(mPasswordToBeTyped)));
-    }}
+    }
+
+    @Test
+    public void enteringInvalidData_ShouldDisplayErrorWhenButtonPressed() {
+        //This tests with the standard implementation of the component
+
+        mFullNameToBeTyped = "Valid Name";
+        mUsernameToBeTyped = "ValidUsername";
+        mEmailToBeTyped = "invalid@email.com";
+        mPasswordToBeTyped = "ValidPassword123";
+
+        onView(withId(R.id.fullnameET)).perform(typeText(mFullNameToBeTyped));
+        onView(withId(R.id.usernameET)).perform(typeText(mUsernameToBeTyped));
+        onView(withId(R.id.emailET)).perform(typeText(mEmailToBeTyped));
+        // Need to close soft keyboard to be able to perform the click below.
+        onView(withId(R.id.editTextPassword)).perform(typeText(mPasswordToBeTyped), closeSoftKeyboard());
+
+
+        onView(withId(R.id.createAccountButton)).perform(click());
+
+        onView(withId(R.id.emailET)).check(matches(hasErrorText("Incorrect email!")));
+    }
+}
