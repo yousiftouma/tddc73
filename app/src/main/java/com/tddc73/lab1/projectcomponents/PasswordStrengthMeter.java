@@ -17,7 +17,7 @@ import com.tddc73.lab1.R;
 
 /**
  * Component that handles entering of passwords and visualizes password strength.
- * Override calculatePasswordStrength to change algorithm for calculating password strength.
+ * Set PasswordStrengthCalculator to decide how to calculate strength of password
  */
 public class PasswordStrengthMeter extends LinearLayout {
 
