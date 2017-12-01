@@ -7,6 +7,7 @@ import android.graphics.Region;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +28,50 @@ public class InteractiveSearcher extends AppCompatEditText implements HttpAsyncT
 
     public InteractiveSearcher(final Context context) {
         super(context);
+        setWillNotDraw(false);
+        this.popupList = new PopupList(context);
+        this.searchId = 0;
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                handleOnTextChanged(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
+        this.addTextChangedListener(textWatcher);
+    }
+
+    public InteractiveSearcher(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setWillNotDraw(false);
+        this.popupList = new PopupList(context);
+        this.searchId = 0;
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                handleOnTextChanged(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
+        this.addTextChangedListener(textWatcher);
+    }
+
+    public InteractiveSearcher(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         setWillNotDraw(false);
         this.popupList = new PopupList(context);
         this.searchId = 0;

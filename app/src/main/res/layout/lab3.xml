@@ -6,35 +6,14 @@
     android:orientation="vertical"
     tools:context="com.tddc73.lab1.lab3">
 
-    <FrameLayout
+    <com.tddc73.lab1.lab3components.InteractiveSearcher
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="2dp"
-        android:background="@android:color/holo_blue_dark"
-        >
+        android:text="TextView" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:background="@android:color/holo_blue_bright">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:background="@android:color/darker_gray">
-
-                <EditText
-                    android:id="@+id/editText6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="8"
-                    android:inputType="textPersonName"
-                    android:hint="Search"
-                    android:background="@android:color/background_light"
-                    android:paddingLeft="10dp"/>
-            </FrameLayout>
-        </FrameLayout>
-    </FrameLayout>
 </LinearLayout>

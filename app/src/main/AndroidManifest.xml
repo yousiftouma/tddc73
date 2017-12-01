@@ -15,7 +15,8 @@
         <activity android:name=".lab12" />
         <activity android:name=".lab13"></activity>
         <activity android:name=".lab2"></activity>
-        <activity android:name=".lab3"></activity>
+        <activity android:name=".lab3">
+        </activity>
         <activity android:name=".Project">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

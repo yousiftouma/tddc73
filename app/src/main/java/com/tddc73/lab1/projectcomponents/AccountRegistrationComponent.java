@@ -1,6 +1,7 @@
 package com.tddc73.lab1.projectcomponents;
 
 import android.content.Context;
+import android.icu.util.VersionInfo;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.tddc73.lab1.R;
+
+import java.util.List;
 
 /**
  * Component that handles account registration. Visualises if any field has incorrect entries. Can override bool functions to define
@@ -24,9 +27,33 @@ public class AccountRegistrationComponent extends LinearLayout{
     private Button accountCreation;
     private SuccessfulRegistrationHandler registrationHandler;
 
+    private List<AccountRegistrationRow> arrList;
+    private LinearLayout ll;
+
     public AccountRegistrationComponent(Context context) {
         super(context);
         init();
+    }
+
+    public AccountRegistrationComponent(Context context, List<AccountRegistrationRow> arrList){
+        super(context);
+        this.setOrientation(VERTICAL);
+        ll = new LinearLayout(this.getContext());
+        ll.setOrientation(VERTICAL);
+        this.arrList = arrList;
+        for (AccountRegistrationRow arr : arrList) {
+            addAccountRegistrationRow(arr);
+        }
+        addView(ll);
+        Button button = new Button(this.getContext());
+        button.setText("Submit");
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        addView(button);
     }
 
     public AccountRegistrationComponent(Context context, @Nullable AttributeSet attrs) {
@@ -60,6 +87,10 @@ public class AccountRegistrationComponent extends LinearLayout{
                 validateRegistration();
             }
         });
+    }
+
+    public final void addAccountRegistrationRow(AccountRegistrationRow arr){
+        ll.addView(arr);
     }
 
     /***
