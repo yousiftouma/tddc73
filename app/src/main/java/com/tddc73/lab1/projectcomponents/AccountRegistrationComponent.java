@@ -1,10 +1,11 @@
 package com.tddc73.lab1.projectcomponents;
 
 import android.content.Context;
-import android.icu.util.VersionInfo;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,32 +28,31 @@ public class AccountRegistrationComponent extends LinearLayout{
     private Button accountCreation;
     private SuccessfulRegistrationHandler registrationHandler;
 
-    private List<AccountRegistrationRow> arrList;
+    private List<AccountRegistrationRow> rows;
     private LinearLayout ll;
 
     public AccountRegistrationComponent(Context context) {
         super(context);
-        init();
     }
 
-    public AccountRegistrationComponent(Context context, List<AccountRegistrationRow> arrList){
+    public AccountRegistrationComponent(Context context, List<AccountRegistrationRow> rows){
         super(context);
         this.setOrientation(VERTICAL);
-        ll = new LinearLayout(this.getContext());
+        ll = new LinearLayout(context);
         ll.setOrientation(VERTICAL);
-        this.arrList = arrList;
-        for (AccountRegistrationRow arr : arrList) {
+        this.rows = rows;
+        for (AccountRegistrationRow arr : rows) {
             addAccountRegistrationRow(arr);
         }
-        addView(ll);
-        Button button = new Button(this.getContext());
+        Button button = new Button(context);
         button.setText("Submit");
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                validateRegistration();
             }
         });
+        addView(ll);
         addView(button);
     }
 
@@ -98,7 +98,7 @@ public class AccountRegistrationComponent extends LinearLayout{
      * fields are correct. Never runs the callback method if no handler is set by the user, result is ignored.
      */
     private void validateRegistration(){
-        boolean successful = true;
+        /*boolean successful = true;
         String fullNameText = fullName.getText().toString();
         String usernameText = username.getText().toString();
         String emailText = email.getText().toString();
@@ -126,7 +126,21 @@ public class AccountRegistrationComponent extends LinearLayout{
         }
 
         if(successful && registrationHandler != null)
-            registrationHandler.onSuccessfulRegistration(fullNameText, usernameText, emailText, passwordText);
+            registrationHandler.onSuccessfulRegistration(fullNameText, usernameText, emailText, passwordText);*/
+        boolean allIsValid = true;
+        for (AccountRegistrationRow row : rows) {
+            if (!row.isValid()) {
+                // Handle invalid row
+                row.setError("Invalid");
+                allIsValid = false;
+            }
+            else{
+                row.setError(null);
+            }
+        }
+        if (allIsValid) {
+            registrationHandler.onSuccessfulRegistration(rows);
+        }
     }
 
     /***

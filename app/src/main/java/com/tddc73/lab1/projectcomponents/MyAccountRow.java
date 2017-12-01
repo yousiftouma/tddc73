@@ -42,20 +42,18 @@ public class MyAccountRow extends AccountRegistrationRow {
         setAccountRegistrationValidator(new AccountRegistrationRowValidator() {
             @Override
             public boolean validate() {
-                return false;
+                return cb.isChecked();
             }
         });
     }
 
     @Override
     public void setDescriptiveText(String descriptiveText) {
-        super.setDescriptiveText(descriptiveText);
+        tv.setText(descriptiveText);
     }
 
     @Override
     public void setError(String errorMessage) {
-        if(!isValid()){
-            cb.setError(errorMessage);
-        }
+        cb.setError(errorMessage);
     }
 }

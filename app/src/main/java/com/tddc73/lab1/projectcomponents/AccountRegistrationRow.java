@@ -46,8 +46,11 @@ public class AccountRegistrationRow extends LinearLayout{
         validator = new AccountRegistrationRowValidator() {
             @Override
             public boolean validate() {
-                String content = descriptiveText.getText().toString();
-                return content.equals("test");
+                if (field != null){
+                    String content = field.getText().toString();
+                    return content.equals("test");
+                }
+                return true;
             }
         };
 
@@ -58,7 +61,7 @@ public class AccountRegistrationRow extends LinearLayout{
     }
 
     public void setDescriptiveText(String descriptiveText) {
-        if(this.descriptiveText != null) {
+        if (this.descriptiveText != null) {
             this.descriptiveText.setText(descriptiveText);
         }
     }
@@ -68,7 +71,16 @@ public class AccountRegistrationRow extends LinearLayout{
     }
 
     public void setError(String errorMessage){
-        field.setError(errorMessage);
+        if (this.field != null) {
+            field.setError(errorMessage);
+        }
+    }
+
+    public String getValue() {
+        if (field != null) {
+            return field.getText().toString();
+        }
+        return null;
     }
 
 }

@@ -31,49 +31,52 @@ public class Project extends AppCompatActivity {
         arr1.setAccountRegistrationValidator(new AccountRegistrationRowValidator() {
             @Override
             public boolean validate() {
-                return false;
+                return true;
             }
         });
         arrList.add(arr1);
+
         AccountRegistrationRow arr2 = new AccountRegistrationRow(this);
         arr2.setDescriptiveText("trololol2");
         arr2.setAccountRegistrationValidator(new AccountRegistrationRowValidator() {
             @Override
             public boolean validate() {
-                return false;
+                return true;
             }
         });
         arrList.add(arr2);
+
         AccountRegistrationRow arr3 = new AccountRegistrationRow(this);
         arr3.setDescriptiveText("trololol3");
-        arr3.setAccountRegistrationValidator(new AccountRegistrationRowValidator() {
-            @Override
-            public boolean validate() {
-                return false;
-            }
-        });
         arrList.add(arr3);
+
         AccountRegistrationRow arr4 = new MyAccountRow(this);
-        arr4.setDescriptiveText("trololol3");
-        arr4.setAccountRegistrationValidator(new AccountRegistrationRowValidator() {
-            @Override
-            public boolean validate() {
-                return false;
-            }
-        });
+        arr4.setDescriptiveText("trololol4");
+
         arrList.add(arr4);
 
         AccountRegistrationComponent arc = new AccountRegistrationComponent(this, arrList);
         arc.setRegistrationHandler(new SuccessfulRegistrationHandler() {
             @Override
-            public void onSuccessfulRegistration(String fullName, String username, String email, String password) {
-                test();
+            public void onSuccessfulRegistration(List<AccountRegistrationRow> rows) {
+                // Handle the successful registration by fetching the values
+                // can be implemented using a key-value map of rows instead
+                // of the current list so
+                // the programmer can keep track of which specific rows
+                // they want to access here, and what their type is
+                // and thus implement row.getValue() in a more flexible way
+                test(rows.size());
+                for (AccountRegistrationRow row : rows) {
+                    System.out.println(row.getValue());
+                }
             }
         });
         setContentView(arc);
     }
 
-    public void test(){
-        Toast.makeText(this, "Successful Account Registration!", Toast.LENGTH_LONG).show();
+    public void test(int count){
+        Toast.makeText(this,
+                "Successful Account Registration with nr of items: " + count,
+                Toast.LENGTH_LONG).show();
     }
 }

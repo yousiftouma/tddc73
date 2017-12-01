@@ -1,16 +1,15 @@
 package com.tddc73.lab1.projectcomponents;
 
 
+import java.util.List;
+
 /**
  * Handles the result of a successful registration
  */
 public interface SuccessfulRegistrationHandler {
     /**
      * Handles result of a successful registration
-     * @param fullName full name
-     * @param username username
-     * @param email email
-     * @param password password
+     * @param rows The rows used to register
      */
-    void onSuccessfulRegistration(String fullName, String username, String email, String password);
+    void onSuccessfulRegistration(List<AccountRegistrationRow> rows);
 }
